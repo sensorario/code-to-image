@@ -11,6 +11,8 @@
     "preview": "vite preview"
   },
   "dependencies": {
+    "highlight.js": "^11.10.0",
+    "html2canvas": "^1.4.1",
     "react": "^18.3.1",
     "react-dom": "^18.3.1",
     "sensorario-design-system": "github:sensorario/sensorario-design-system#next"
