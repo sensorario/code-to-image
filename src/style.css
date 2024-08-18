@@ -1,3 +1,11 @@
 .language-javascript {
   text-align: left;
 }
+
+.container {
+  display: flex;
+  gap: 20px;
+  justify-content: space-evenly;
+  flex-wrap: nowrap;
+  align-items: center;
+}
