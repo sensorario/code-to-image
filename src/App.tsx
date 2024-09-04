@@ -1,29 +1,20 @@
-import { useEffect, useState } from "react";
-import html2canvas from "html2canvas";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css"; // Puoi scegliere altri stili disponibili
+import html2canvas from "html2canvas";
+import { useEffect, useState } from "react";
 
 const App = () => {
   const [rawCode, setCode] = useState("");
   const handleDownloadImage = async () => {
-    const element: HTMLElement | null = document.querySelector(
-      ".language-javascript"
-    );
-
+    const element: HTMLElement | null = document.querySelector(".code-output");
     const canvas = await html2canvas(element!);
-    const data = canvas.toDataURL("image/jpg");
+    const data = canvas.toDataURL("image/png");
     const link = document.createElement("a");
-
-    if (typeof link.download === "string") {
-      link.href = data;
-      link.download = "image.jpg";
-
-      document.body.appendChild(link);
-      link.click();
-      document.body.removeChild(link);
-    } else {
-      window.open(data);
-    }
+    link.href = data;
+    link.download = "image.png";
+    document.body.appendChild(link);
+    link.click();
+    document.body.removeChild(link);
   };
 
   const [highlightedCode, setH] = useState<string>("");
