@@ -10,8 +10,8 @@ const App = () => {
   const [highlightedCode, setHighlightedCode] = useState<string>("");
 
   useEffect(() => {
-    const stringa = hljs.highlight(rawCode!, {
-      language: "css",
+    const stringa = hljs.highlight(rawCode, {
+      language: "javascript",
     }).value;
     setHighlightedCode(stringa);
   }, [rawCode]);
@@ -21,7 +21,7 @@ const App = () => {
       highlightedCode && (
         <div className="wrapper">
           <div className="code-output">
-            <div className="header">css</div>
+            <div className="header">JavaScript</div>
             <pre>
               <code className="language-javascript">
                 <HtmlToReact htmlString={highlightedCode} />
@@ -46,7 +46,6 @@ const App = () => {
           value={rawCode}
           placeholder="Write your code here..."
           rows={10}
-          cols={40}
         />
       </div>
     );

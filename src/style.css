@@ -32,6 +32,7 @@ h1 {
   .page {
     height: 100%;
     min-width: 640px;
+    margin-top: 32px;
 
     .container {
       display: flex;
@@ -84,8 +85,8 @@ h1 {
         textarea {
           padding: 16px;
           border-radius: 16px;
-          width: calc(100% - 48px);
-          margin: 16px;
+          width: calc(100% - 8px);
+          resize: vertical;
         }
       }
     }
