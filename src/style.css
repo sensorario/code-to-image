@@ -20,10 +20,6 @@ h1 {
 }
 
 .sensorario-container {
-  &.light {
-    height: 100%;
-  }
-
   button {
     padding: 8px 16px;
     font-size: small;
@@ -95,27 +91,12 @@ h1 {
 
 /* Tablet breakpoint 768 */
 @media only screen and (min-width: 768px) {
-  /* .sensorario-container {
-    .page {
-      min-width: 600px;
-    }
-  } */
 }
 
 /* Desktop 1152 breakpoint */
 @media only screen and (min-width: 1152px) {
-  /* .sensorario-container {
-    .page {
-      min-width: 900px;
-    }
-  } */
 }
 
 /* Desktop 1366 breakpoint */
 @media only screen and (min-width: 1366px) {
-  /* .sensorario-container {
-    .page {
-      min-width: 1200px;
-    }
-  } */
 }
