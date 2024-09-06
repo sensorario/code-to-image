@@ -10,5 +10,3 @@ npm run dev
 ## images
 
 ![](image.png)
-
-![](image.jpg)
