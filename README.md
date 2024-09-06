@@ -9,4 +9,4 @@ npm run dev
 
 ## images
 
-![](image.png)
+![](example.png)
