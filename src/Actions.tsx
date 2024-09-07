@@ -2,7 +2,7 @@ type handleDownloadImageProp = {
   handler: React.MouseEventHandler;
 };
 
-export const RenderActions = ({ handler }: handleDownloadImageProp) => {
+export const Actions = ({ handler }: handleDownloadImageProp) => {
   return (
     <div className="render-actions">
       <button onClick={handler}>download code</button>
@@ -10,4 +10,4 @@ export const RenderActions = ({ handler }: handleDownloadImageProp) => {
   );
 };
 
-export default RenderActions;
+export default Actions;

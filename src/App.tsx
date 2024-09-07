@@ -1,38 +1,23 @@
-import { ChangeEventHandler, useEffect, useState } from "react";
-import { handleDownloadImage } from "./utils/download";
-
+import { useEffect, useState } from "react";
+import { handleDownloadImage } from "./utils/handleDownloadImage";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
-import RenderActions from "./RenderActions";
-import RenderHighlightedCode from "./RenderHighlightedCode";
+import Actions from "./Actions";
+import HighlightedCode from "./HighlightedCode";
+import RenderInputCode from "./UserInput";
 
 const App = () => {
   const [rawCode, setCode] = useState("");
   const [code, setHighlightedCode] = useState<string>("");
+  const handler = (event: { target: { value: string } }): void => {
+    setCode(event?.target.value);
+  };
 
   useEffect(() => {
-    const stringa = hljs.highlight(rawCode, {
-      language: "javascript",
-    }).value;
+    const options = { language: "javascript" };
+    const stringa = hljs.highlight(rawCode, options).value;
     setHighlightedCode(stringa);
   }, [rawCode]);
-
-  type RendereInputCodeProp = {
-    onChange: ChangeEventHandler<HTMLTextAreaElement>;
-  };
-
-  const RendereInputCode = ({ onChange }: RendereInputCodeProp) => {
-    return (
-      <div className="the-code">
-        <textarea
-          onChange={onChange}
-          value={rawCode}
-          placeholder="Write your code here..."
-          rows={10}
-        />
-      </div>
-    );
-  };
 
   return (
     <div className="sensorario-container light">
@@ -41,13 +26,9 @@ const App = () => {
       </div>
       <div className="page">
         <div className="container">
-          <RendereInputCode
-            onChange={function (event): void {
-              setCode(event?.target.value);
-            }}
-          />
-          <RenderHighlightedCode code={code} />
-          <RenderActions handler={handleDownloadImage} />
+          <RenderInputCode onChange={handler} rawCode={rawCode} />
+          <HighlightedCode code={code} />
+          <Actions handler={handleDownloadImage} />
         </div>
       </div>
     </div>

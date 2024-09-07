@@ -1,10 +1,10 @@
-import { HtmlToReact } from "./utils/html2canvas";
+import { HtmlToReact } from "./HtmlToReact";
 
-type RenderHighlightedCodeProp = {
+type HighlightedCodeProp = {
   code: string;
 };
 
-const RenderHighlightedCode = ({ code }: RenderHighlightedCodeProp) => {
+const HighlightedCode = ({ code }: HighlightedCodeProp) => {
   return (
     code && (
       <div className="wrapper">
@@ -22,4 +22,4 @@ const RenderHighlightedCode = ({ code }: RenderHighlightedCodeProp) => {
   );
 };
 
-export default RenderHighlightedCode;
+export default HighlightedCode;

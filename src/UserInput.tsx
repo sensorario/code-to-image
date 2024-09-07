@@ -1,14 +1,11 @@
-import React, { ChangeEventHandler } from "react";
+import { ChangeEventHandler } from "react";
 
-type RendereInputCodeProp = {
+type UserInputProp = {
   onChange: ChangeEventHandler<HTMLTextAreaElement>;
   rawCode: string;
 };
 
-export const RendereInputCode = ({
-  onChange,
-  rawCode,
-}: RendereInputCodeProp) => {
+export const UserInput = ({ onChange, rawCode }: UserInputProp) => {
   return (
     <div className="the-code">
       <textarea
@@ -21,4 +18,4 @@ export const RendereInputCode = ({
   );
 };
 
-export default RendereInputCode;
+export default UserInput;

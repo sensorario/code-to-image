@@ -12,3 +12,5 @@ export const handleDownloadImage = async () => {
   link.click();
   document.body.removeChild(link);
 };
+
+export default handleDownloadImage;
