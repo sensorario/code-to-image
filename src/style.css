@@ -15,7 +15,7 @@ h1 {
   border-bottom: #000 1px solid;
   width: 100%;
   box-shadow: 0px -8px 20px black;
-  position: sticky;
+  position: absolute;
   top: 0;
 }
 
