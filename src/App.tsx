@@ -4,7 +4,7 @@ import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import Actions from "./Actions";
 import HighlightedCode from "./HighlightedCode";
-import RenderInputCode from "./UserInput";
+import UserInput from "./UserInput";
 
 const App = () => {
   const [rawCode, setCode] = useState("");
@@ -26,7 +26,7 @@ const App = () => {
       </div>
       <div className="page">
         <div className="container">
-          <RenderInputCode onChange={handler} rawCode={rawCode} />
+          <UserInput onChange={handler} rawCode={rawCode} />
           <HighlightedCode code={code} />
           <Actions handler={handleDownloadImage} />
         </div>
