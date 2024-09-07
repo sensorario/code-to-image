@@ -1,13 +1,14 @@
-import { useEffect, useState } from "react";
-import { HtmlToReact } from "./utils/html2canvas";
+import { ChangeEventHandler, useEffect, useState } from "react";
 import { handleDownloadImage } from "./utils/download";
 
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
+import RenderActions from "./RenderActions";
+import RenderHighlightedCode from "./RenderHighlightedCode";
 
 const App = () => {
   const [rawCode, setCode] = useState("");
-  const [highlightedCode, setHighlightedCode] = useState<string>("");
+  const [code, setHighlightedCode] = useState<string>("");
 
   useEffect(() => {
     const stringa = hljs.highlight(rawCode, {
@@ -16,45 +17,19 @@ const App = () => {
     setHighlightedCode(stringa);
   }, [rawCode]);
 
-  const RenderHighlightedCode = (highlightedCode: string) => {
-    return (
-      highlightedCode && (
-        <div className="wrapper">
-          <div className="code-output">
-            <div className="header">JavaScript</div>
-            <pre>
-              <code className="language-javascript">
-                <HtmlToReact htmlString={highlightedCode} />
-              </code>
-            </pre>
-            <div className="tag">
-              https://github.com/sensorario/code-to-image
-            </div>
-          </div>
-        </div>
-      )
-    );
+  type RendereInputCodeProp = {
+    onChange: ChangeEventHandler<HTMLTextAreaElement>;
   };
 
-  const renderInputCode = () => {
+  const RendereInputCode = ({ onChange }: RendereInputCodeProp) => {
     return (
       <div className="the-code">
         <textarea
-          onChange={(event) => {
-            setCode(event.target.value);
-          }}
+          onChange={onChange}
           value={rawCode}
           placeholder="Write your code here..."
           rows={10}
         />
-      </div>
-    );
-  };
-
-  const renderActions = () => {
-    return (
-      <div className="render-actions">
-        <button onClick={handleDownloadImage}>download code</button>
       </div>
     );
   };
@@ -66,9 +41,13 @@ const App = () => {
       </div>
       <div className="page">
         <div className="container">
-          {renderInputCode()}
-          {RenderHighlightedCode(highlightedCode)}
-          {renderActions()}
+          <RendereInputCode
+            onChange={function (event): void {
+              setCode(event?.target.value);
+            }}
+          />
+          <RenderHighlightedCode code={code} />
+          <RenderActions handler={handleDownloadImage} />
         </div>
       </div>
     </div>
