@@ -8,6 +8,7 @@ import UserInput from "./UserInput";
 
 const App = () => {
   const [title, setTitle] = useState("");
+  const [language, setLanguage] = useState("javascript");
   const [rawCode, setCode] = useState("");
   const [code, setHighlightedCode] = useState<string>("");
   const handler = (event: { target: { value: string } }): void => {
@@ -15,13 +16,19 @@ const App = () => {
   };
 
   useEffect(() => {
-    const options = { language: "javascript" };
+    const options = { language };
     const stringa = hljs.highlight(rawCode, options).value;
     setHighlightedCode(stringa);
   }, [rawCode]);
 
-  const theHanler = event => {
-    setTitle(event.target.value)
+  const headerHandler = (event : { target: { value: any } }) => {
+    setTitle(event.target!.value)
+  };
+
+  const languageSelectionHandler = (event : { target: { value: any } }) => {
+    const language = event.target.value;
+    setLanguage(language);
+    if (language === 'bash') setTitle('> Terminale');
   };
 
   return (
@@ -31,7 +38,13 @@ const App = () => {
       </div>
       <div className="page">
         <div className="container">
-          <input type="text" onChange={theHanler} />
+          <div className="selection">
+            <select onChange={languageSelectionHandler}>
+              <option value="javascript">javascript</option>
+              <option value="bash">bash</option>
+            </select>
+          </div>
+          <input type="text" onChange={headerHandler} value={title} />
           <UserInput onChange={handler} rawCode={rawCode} />
           <HighlightedCode code={code} title={title} />
           <Actions handler={handleDownloadImage} />
