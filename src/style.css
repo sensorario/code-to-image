@@ -19,6 +19,11 @@ h1 {
   top: 0;
 }
 
+input[type="text"] {
+  width: calc(100% - 8px);
+  font-size: small;
+}
+
 .sensorario-container {
   button {
     padding: 8px 16px;

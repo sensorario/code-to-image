@@ -7,6 +7,7 @@ import HighlightedCode from "./HighlightedCode";
 import UserInput from "./UserInput";
 
 const App = () => {
+  const [title, setTitle] = useState("");
   const [rawCode, setCode] = useState("");
   const [code, setHighlightedCode] = useState<string>("");
   const handler = (event: { target: { value: string } }): void => {
@@ -19,6 +20,10 @@ const App = () => {
     setHighlightedCode(stringa);
   }, [rawCode]);
 
+  const theHanler = event => {
+    setTitle(event.target.value)
+  };
+
   return (
     <div className="sensorario-container light">
       <div className="title-bar">
@@ -26,8 +31,9 @@ const App = () => {
       </div>
       <div className="page">
         <div className="container">
+          <input type="text" onChange={theHanler} />
           <UserInput onChange={handler} rawCode={rawCode} />
-          <HighlightedCode code={code} />
+          <HighlightedCode code={code} title={title} />
           <Actions handler={handleDownloadImage} />
         </div>
       </div>
