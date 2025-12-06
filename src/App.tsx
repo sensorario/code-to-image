@@ -42,6 +42,7 @@ const App = () => {
             <select onChange={languageSelectionHandler}>
               <option value="javascript">javascript</option>
               <option value="bash">bash</option>
+              <option value="css">css</option>
             </select>
           </div>
           <input type="text" onChange={headerHandler} value={title} />
