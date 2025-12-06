@@ -16,7 +16,7 @@ const HighlightedCode = ({ code, title }: HighlightedCodeProp) => {
               <HtmlToReact htmlString={code} />
             </code>
           </pre>
-          <div className="tag">https://github.com/sensorario/code-to-image</div>
+          <div className="tag">https://code2image.simonegentili.com/</div>
         </div>
       </div>
     )
