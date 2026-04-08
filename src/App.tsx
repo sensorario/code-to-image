@@ -1,4 +1,4 @@
-import { useEffect, useState } from "react";
+import { ChangeEvent, useEffect, useState } from "react";
 import { handleDownloadImage } from "./utils/handleDownloadImage";
 import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
@@ -6,12 +6,14 @@ import Actions from "./Actions";
 import HighlightedCode from "./HighlightedCode";
 import UserInput from "./UserInput";
 
+const languages = ["javascript", "bash", "css"] as const;
+
 const App = () => {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [rawCode, setCode] = useState("");
   const [code, setHighlightedCode] = useState<string>("");
-  const handler = (event: { target: { value: string } }): void => {
+  const handler = (event: ChangeEvent<HTMLTextAreaElement>): void => {
     setCode(event?.target.value);
   };
 
@@ -19,16 +21,15 @@ const App = () => {
     const options = { language };
     const stringa = hljs.highlight(rawCode, options).value;
     setHighlightedCode(stringa);
-  }, [rawCode]);
+  }, [language, rawCode]);
 
-  const headerHandler = (event : { target: { value: any } }) => {
-    setTitle(event.target!.value)
+  const headerHandler = (event: ChangeEvent<HTMLInputElement>) => {
+    setTitle(event.target.value);
   };
 
-  const languageSelectionHandler = (event : { target: { value: any } }) => {
-    const language = event.target.value;
-    setLanguage(language);
-    if (language === 'bash') setTitle('> Terminale');
+  const languageSelectionHandler = (selectedLanguage: string) => {
+    setLanguage(selectedLanguage);
+    if (selectedLanguage === "bash") setTitle("> Terminale");
   };
 
   return (
@@ -39,11 +40,16 @@ const App = () => {
       <div className="page">
         <div className="container">
           <div className="selection">
-            <select onChange={languageSelectionHandler}>
-              <option value="javascript">javascript</option>
-              <option value="bash">bash</option>
-              <option value="css">css</option>
-            </select>
+            {languages.map((languageOption) => (
+              <button
+                key={languageOption}
+                type="button"
+                className={language === languageOption ? "is-active" : ""}
+                onClick={() => languageSelectionHandler(languageOption)}
+              >
+                {languageOption}
+              </button>
+            ))}
           </div>
           <input type="text" onChange={headerHandler} value={title} />
           <UserInput onChange={handler} rawCode={rawCode} />

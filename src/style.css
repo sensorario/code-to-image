@@ -26,13 +26,24 @@ input[type="text"] {
 
 .selection {
   padding: 2px;
+  display: flex;
+  gap: 8px;
+  flex-wrap: wrap;
 }
 
-select {
-  width: calc(100% - 8px);
-  font-size: small;
-  padding: 8px;
+.selection button {
+  width: auto;
+  padding: 8px 12px;
+  border: 1px solid #ccc;
   border-radius: 16px;
+  background-color: #fff;
+  cursor: pointer;
+}
+
+.selection button.is-active {
+  border-color: #000;
+  background-color: #000;
+  color: #fff;
 }
 
 .sensorario-container {
