@@ -1,11 +1,13 @@
+import Button from "sensorario-design-system/Button";
+
 type handleDownloadImageProp = {
-  handler: React.MouseEventHandler;
+  handler: () => void;
 };
 
 export const Actions = ({ handler }: handleDownloadImageProp) => {
   return (
     <div className="render-actions">
-      <button onClick={handler}>download code</button>
+      <Button onClick={handler}>download code</Button>
     </div>
   );
 };

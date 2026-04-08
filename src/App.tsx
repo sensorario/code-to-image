@@ -5,6 +5,8 @@ import "highlight.js/styles/github.css";
 import Actions from "./Actions";
 import HighlightedCode from "./HighlightedCode";
 import UserInput from "./UserInput";
+import "sensorario-design-system/style/index.css";
+import Button from "sensorario-design-system/Button";
 
 const languages = ["javascript", "bash", "css"] as const;
 
@@ -41,14 +43,14 @@ const App = () => {
         <div className="container">
           <div className="selection">
             {languages.map((languageOption) => (
-              <button
+              <Button
                 key={languageOption}
                 type="button"
                 className={language === languageOption ? "is-active" : ""}
                 onClick={() => languageSelectionHandler(languageOption)}
               >
                 {languageOption}
-              </button>
+              </Button>
             ))}
           </div>
           <input type="text" onChange={headerHandler} value={title} />
