@@ -1,28 +1,26 @@
-import { ChangeEvent, useEffect, useState } from "react";
+import { useEffect, useState } from "react";
 import { handleDownloadImage } from "./utils/handleDownloadImage";
-import hljs from "highlight.js/lib/core";
-import bash from "highlight.js/lib/languages/bash";
-import css from "highlight.js/lib/languages/css";
-import javascript from "highlight.js/lib/languages/javascript";
+import hljs from "highlight.js";
 import "highlight.js/styles/github.css";
 import Actions from "./Actions";
 import HighlightedCode from "./HighlightedCode";
-import UserInput from "./UserInput";
+import "sensorario-design-system/style/index.css";
 import Button from "sensorario-design-system/Button";
 
 const languages = ["javascript", "bash", "css"] as const;
-
-hljs.registerLanguage("javascript", javascript);
-hljs.registerLanguage("bash", bash);
-hljs.registerLanguage("css", css);
 
 const App = () => {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [rawCode, setCode] = useState("");
   const [code, setHighlightedCode] = useState<string>("");
-  const handler = (event: ChangeEvent<HTMLTextAreaElement>): void => {
-    setCode(event?.target.value);
+
+  const codeChangeHandler = (value: string): void => {
+    setCode(value);
+  };
+
+  const titleChangeHandler = (value: string): void => {
+    setTitle(value);
   };
 
   useEffect(() => {
@@ -30,10 +28,6 @@ const App = () => {
     const stringa = hljs.highlight(rawCode, options).value;
     setHighlightedCode(stringa);
   }, [language, rawCode]);
-
-  const headerHandler = (event: ChangeEvent<HTMLInputElement>) => {
-    setTitle(event.target.value);
-  };
 
   const languageSelectionHandler = (selectedLanguage: string) => {
     setLanguage(selectedLanguage);
@@ -59,9 +53,13 @@ const App = () => {
               </Button>
             ))}
           </div>
-          <input type="text" onChange={headerHandler} value={title} />
-          <UserInput onChange={handler} rawCode={rawCode} />
-          <HighlightedCode code={code} title={title} />
+          <HighlightedCode
+            code={code}
+            rawCode={rawCode}
+            title={title}
+            onCodeChange={codeChangeHandler}
+            onTitleChange={titleChangeHandler}
+          />
           <Actions handler={handleDownloadImage} />
         </div>
       </div>

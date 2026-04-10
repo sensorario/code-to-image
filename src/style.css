@@ -10,7 +10,6 @@ h1 {
 }
 
 .title-bar {
-  background-color: var(--background-light);
   padding: 8px 16px;
   border-bottom: #000 1px solid;
   width: 100%;
@@ -22,28 +21,6 @@ h1 {
 input[type="text"] {
   width: calc(100% - 8px);
   font-size: small;
-}
-
-.selection {
-  padding: 2px;
-  display: flex;
-  gap: 8px;
-  flex-wrap: wrap;
-}
-
-.selection button {
-  width: auto;
-  padding: 8px 12px;
-  border: 1px solid #ccc;
-  border-radius: 16px;
-  background-color: #fff;
-  cursor: pointer;
-}
-
-.selection button.is-active {
-  border-color: #000;
-  background-color: #000;
-  color: #fff;
 }
 
 .sensorario-container {
@@ -76,12 +53,25 @@ input[type="text"] {
           border: #ccc 1px solid;
           border-radius: 16px;
           margin: auto;
-          background-color: var(--background-light);
           width: calc(100% - 8px);
           max-width: 640px;
 
           pre {
             padding: 16px;
+            text-align: left;
+
+            .editable-code {
+              border: 0;
+              outline: none;
+              width: 100%;
+              resize: vertical;
+              min-height: 220px;
+              font-family: "Courier New", Courier, monospace;
+              font-size: 14px;
+              line-height: 1.6;
+              text-align: left;
+              white-space: pre;
+            }
           }
 
           .tag {
@@ -94,12 +84,17 @@ input[type="text"] {
             border-bottom: #ccc 1px solid;
             padding: 4px 16px;
             text-align: left;
+
+            &.editable-title {
+              outline: none;
+            }
+
+            &.editable-title:empty::before {
+              content: attr(data-placeholder);
+              color: #888;
+            }
           }
         }
-      }
-
-      .language-javascript {
-        text-align: left;
       }
 
       div {
