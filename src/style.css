@@ -9,6 +9,16 @@ h1 {
   font-size: x-large;
 }
 
+.sensorario-container {
+    &.light {
+        background-color: white;
+    }
+}
+
+.code-output {
+  background-color: #ffde59;
+}
+
 .title-bar {
   padding: 8px 16px;
   border-bottom: #000 1px solid;
