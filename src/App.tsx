@@ -11,10 +11,9 @@ const languages = ["javascript", "bash", "css"] as const;
 const App = () => {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("javascript");
-  const [rawCode, setCode] = useState("");
 
-  const codeChangeHandler = (value: string): void => {
-    setCode(value);
+  const codeChangeHandler = (): void => {
+    // contenuto gestito direttamente dal DOM (contentEditable non controllato)
   };
 
   const titleChangeHandler = (value: string): void => {
@@ -46,8 +45,8 @@ const App = () => {
             ))}
           </div>
           <HighlightedCode
-            rawCode={rawCode}
             title={title}
+            language={language}
             onCodeChange={codeChangeHandler}
             onTitleChange={titleChangeHandler}
           />
