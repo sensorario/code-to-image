@@ -1,8 +1,6 @@
 import { ClipboardEvent, FormEvent } from "react";
-import { HtmlToReact } from "./HtmlToReact";
 
 type HighlightedCodeProp = {
-  code: string;
   rawCode: string;
   title: string;
   onCodeChange: (value: string) => void;
@@ -10,7 +8,6 @@ type HighlightedCodeProp = {
 };
 
 const HighlightedCode = ({
-  code,
   rawCode,
   title,
   onCodeChange,
@@ -19,7 +16,18 @@ const HighlightedCode = ({
   const pasteAsPlainText = (event: ClipboardEvent<HTMLDivElement>) => {
     event.preventDefault();
     const text = event.clipboardData.getData("text/plain");
-    document.execCommand("insertText", false, text);
+
+    const selection = window.getSelection();
+    if (!selection || selection.rangeCount === 0) {
+      return;
+    }
+
+    selection.deleteFromDocument();
+    const range = selection.getRangeAt(0);
+    range.insertNode(document.createTextNode(text));
+    selection.collapseToEnd();
+
+    onCodeChange(event.currentTarget.innerText);
   };
 
   const inputHandler = (event: FormEvent<HTMLDivElement>) => {
@@ -52,8 +60,9 @@ const HighlightedCode = ({
             spellCheck={false}
             onInput={inputHandler}
             onPaste={pasteAsPlainText}
+            data-placeholder="Incolla o scrivi qui il codice..."
           >
-            {code ? <HtmlToReact htmlString={code} /> : rawCode || "Incolla o scrivi qui il codice..."}
+            {rawCode}
           </div>
         </pre>
         <div className="tag">https://code2image.simonegentili.com/</div>

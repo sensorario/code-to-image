@@ -82,6 +82,11 @@ input[type="text"] {
               line-height: 1.6;
               text-align: left;
               white-space: pre;
+
+              &:empty::before {
+                content: attr(data-placeholder);
+                color: #888;
+              }
             }
           }
 

@@ -1,9 +1,5 @@
-import { useEffect, useState } from "react";
+import { useState } from "react";
 import { handleDownloadImage } from "./utils/handleDownloadImage";
-import hljs from "highlight.js/lib/core";
-import bash from "highlight.js/lib/languages/bash";
-import css from "highlight.js/lib/languages/css";
-import javascript from "highlight.js/lib/languages/javascript";
 import "highlight.js/styles/github.css";
 import Actions from "./Actions";
 import HighlightedCode from "./HighlightedCode";
@@ -12,15 +8,10 @@ import Button from "sensorario-design-system/Button";
 
 const languages = ["javascript", "bash", "css"] as const;
 
-hljs.registerLanguage("javascript", javascript);
-hljs.registerLanguage("bash", bash);
-hljs.registerLanguage("css", css);
-
 const App = () => {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [rawCode, setCode] = useState("");
-  const [code, setHighlightedCode] = useState<string>("");
 
   const codeChangeHandler = (value: string): void => {
     setCode(value);
@@ -29,12 +20,6 @@ const App = () => {
   const titleChangeHandler = (value: string): void => {
     setTitle(value);
   };
-
-  useEffect(() => {
-    const options = { language };
-    const stringa = hljs.highlight(rawCode, options).value;
-    setHighlightedCode(stringa);
-  }, [language, rawCode]);
 
   const languageSelectionHandler = (selectedLanguage: string) => {
     setLanguage(selectedLanguage);
@@ -61,7 +46,6 @@ const App = () => {
             ))}
           </div>
           <HighlightedCode
-            code={code}
             rawCode={rawCode}
             title={title}
             onCodeChange={codeChangeHandler}
