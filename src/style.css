@@ -74,8 +74,9 @@ input[type="text"] {
               border: 0;
               outline: none;
               width: 100%;
-              resize: vertical;
-              min-height: 220px;
+              height: auto;
+              min-height: 0;
+              overflow: visible;
               font-family: "Courier New", Courier, monospace;
               font-size: 14px;
               line-height: 1.6;
