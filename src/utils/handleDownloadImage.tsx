@@ -2,14 +2,10 @@ export const handleDownloadImage = async () => {
   const { default: html2canvas } = await import("html2canvas");
   const element: HTMLElement | null = document.querySelector(".wrapper");
   const canvas = await html2canvas(element!, { backgroundColor: null });
-  const data = canvas.toDataURL("image/png", 1.0);
-  const link = document.createElement("a");
-
-  link.href = data;
-  link.download = "image.png";
-  document.body.appendChild(link);
-  link.click();
-  document.body.removeChild(link);
+  const blob = await new Promise<Blob>((resolve, reject) =>
+    canvas.toBlob((b) => (b ? resolve(b) : reject(new Error("toBlob failed"))), "image/png", 1.0)
+  );
+  await navigator.clipboard.write([new ClipboardItem({ "image/png": blob })]);
 };
 
 export default handleDownloadImage;

@@ -7,7 +7,7 @@ type handleDownloadImageProp = {
 export const Actions = ({ handler }: handleDownloadImageProp) => {
   return (
     <div className="render-actions">
-      <Button onClick={handler}>download code</Button>
+      <Button onClick={handler}>copy to clipboard</Button>
     </div>
   );
 };
