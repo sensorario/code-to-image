@@ -5,7 +5,14 @@ import Actions from "./Actions";
 import HighlightedCode from "./HighlightedCode";
 import "sensorario-design-system/style/index.css";
 import Button from "sensorario-design-system/Button";
-import { SGFooter } from "@sensorario/sg-components";
+import { Footer, Header } from "./storybook-components/index.ts";
+
+const footerLinks = [
+  { label: "guitar", href: "https://guitar.simonegentili.com" },
+  { label: "quadrato", href: "https://quadrato.simonegentili.com" },
+  { label: "gantt", href: "https://gantt.simonegentili.com" },
+  { label: "code2image", href: "https://code2image.simonegentili.com" },
+];
 
 const languages = ["javascript", "bash", "css"] as const;
 
@@ -28,35 +35,39 @@ const App = () => {
 
   return (
     <>
+      <Header title="code2image - snippet to image conversion" />
       <div className="sensorario-container light">
-        <div className="title-bar">
-          <h1>code2image</h1>
-        </div>
-        <div className="page">
-          <div className="container">
-            <div className="selection">
-              {languages.map((languageOption) => (
-                <Button
-                  key={languageOption}
-                  type="button"
-                  className={language === languageOption ? "is-active" : ""}
-                  onClick={() => languageSelectionHandler(languageOption)}
-                >
-                  {languageOption}
-                </Button>
-              ))}
+        <div className="code2image-content">
+          <div className="page">
+            <div className="container">
+              <div className="selection">
+                {languages.map((languageOption) => (
+                  <Button
+                    key={languageOption}
+                    type="button"
+                    className={language === languageOption ? "is-active" : ""}
+                    onClick={() => languageSelectionHandler(languageOption)}
+                  >
+                    {languageOption}
+                  </Button>
+                ))}
+              </div>
+              <HighlightedCode
+                title={title}
+                language={language}
+                onCodeChange={codeChangeHandler}
+                onTitleChange={titleChangeHandler}
+              />
+              <Actions handler={handleDownloadImage} />
             </div>
-            <HighlightedCode
-              title={title}
-              language={language}
-              onCodeChange={codeChangeHandler}
-              onTitleChange={titleChangeHandler}
-            />
-            <Actions handler={handleDownloadImage} />
           </div>
         </div>
       </div>
-      <SGFooter />
+      <Footer
+        href="https://simonegentili.com"
+        copyright="© 2026 simonegentili.com"
+        links={footerLinks}
+      />
     </>
   );
 };

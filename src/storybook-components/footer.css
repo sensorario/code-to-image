@@ -1,0 +1,25 @@
+@import './themes.css';
+
+.footer {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 16px 32px;
+  background-color: var(--primary-bg);
+  border-top: 1px solid var(--primary-border);
+  font-family: var(--font-family);
+  font-size: 14px;
+  color: #555;
+  position: fixed;
+  width: 100%;
+  bottom: 0;
+}
+
+.footer a {
+  color: #1ea7fd;
+  text-decoration: none;
+}
+
+.footer a:hover {
+  text-decoration: underline;
+}

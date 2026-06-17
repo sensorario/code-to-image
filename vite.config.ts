@@ -6,16 +6,22 @@ export default defineConfig({
   build: {
     rollupOptions: {
       output: {
-        manualChunks: {
-          react: ["react", "react-dom"],
-          highlight: [
-            "highlight.js/lib/core",
-            "highlight.js/lib/languages/bash",
-            "highlight.js/lib/languages/css",
-            "highlight.js/lib/languages/javascript",
-          ],
-          download: ["html2canvas"],
-          designSystem: ["sensorario-design-system/Button"],
+        manualChunks(id) {
+          if (id.includes("node_modules/react") || id.includes("node_modules/react-dom")) {
+            return "react";
+          }
+
+          if (id.includes("highlight.js/lib/")) {
+            return "highlight";
+          }
+
+          if (id.includes("html2canvas")) {
+            return "download";
+          }
+
+          if (id.includes("sensorario-design-system")) {
+            return "designSystem";
+          }
         },
       },
     },

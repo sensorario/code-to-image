@@ -1,0 +1,32 @@
+:root {
+  --unit: 3px;
+  --primary-bg: #f5f5f5;
+  --primary-border: #ccc;
+  --radius: calc(var(--unit) * 2);
+  --primary-radius: var(--radius);
+  --primary-font: var(--font-size);
+  --primary-hover-bg: #e0e0e0;
+  --modal-bg: #fff;
+  --modal-overlay: rgba(0, 0, 0, 0.3);
+  --modal-title-color: #222;
+  --input-bg: #fff;
+  --input-border: #ccc;
+  --input-radius: var(--radius);
+  --input-font: 1rem;
+  --font-size: 16px;
+  --font-family: Arial, sans-serif;
+  --font-size-h1: calc(var(--font-size) * 1.5);
+}
+
+.theme-dark {
+  --primary-bg: #222;
+  --primary-border: #444;
+  --primary-font: 1rem;
+  --font-family: 'Inter', Arial, sans-serif;
+  --primary-hover-bg: #333;
+  --modal-bg: #222;
+  --modal-title-color: #fff;
+  --input-bg: #333;
+  --input-border: #555;
+  --input-font: 1rem;
+}

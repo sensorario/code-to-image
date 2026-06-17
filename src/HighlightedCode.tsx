@@ -71,7 +71,7 @@ const HighlightedCode = ({
       <div className="code-output">
         <div
           ref={titleRef}
-          className="header editable-title"
+          className="code-output-header editable-title"
           contentEditable
           suppressContentEditableWarning
           spellCheck={false}
