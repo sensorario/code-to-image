@@ -56,14 +56,39 @@ const HighlightedCode = ({
     onChange: (value: string) => void
   ) => {
     event.preventDefault();
-    const text = event.clipboardData.getData("text/plain");
+    let text = event.clipboardData.getData("text/plain");
+
+    // --- LOGICA DI PULIZIA SPAZI (DEDENT) ---
+    const lines = text.split('\n');
+
+    // Trova il minor numero di spazi all'inizio delle righe (escludendo le righe vuote)
+    const minIndent = lines.reduce((min, line) => {
+      if (line.trim().length === 0) return min; // Salta le righe vuote
+      const match = line.match(/^(\s*)/);
+      const indentLength = match ? match[0].length : 0;
+      return indentLength < min ? indentLength : min;
+    }, Infinity);
+
+    // Se c'è un'indentazione comune, la rimuoviamo da ogni riga
+    if (minIndent !== Infinity && minIndent > 0) {
+      text = lines
+        .map(line => line.startsWith(' '.repeat(minIndent)) ? line.slice(minIndent) : line)
+        .join('\n');
+    }
+    // ----------------------------------------
+
     const selection = window.getSelection();
     if (!selection || selection.rangeCount === 0) return;
+
     selection.deleteFromDocument();
     const range = selection.getRangeAt(0);
     range.insertNode(document.createTextNode(text));
     selection.collapseToEnd();
-    onChange(event.currentTarget.innerText);
+
+    // Usiamo setTimeout per assicurarci che il DOM si sia aggiornato prima di leggere innerText
+    setTimeout(() => {
+      onChange(event.currentTarget.innerText);
+    }, 0);
   };
 
   return (

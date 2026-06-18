@@ -56,10 +56,10 @@
               overflow: visible;
               font-family: "Courier New", Courier, monospace;
               font-size: var(--font-size);
-              line-height: 1.6;
+              line-height: 1.4;
               text-align: left;
               white-space: pre;
-
+              
               &:empty::before {
                 content: attr(data-placeholder);
                 color: #888;
@@ -94,8 +94,8 @@
         width: 100%;
 
         textarea {
-          padding: 16px;
-          border-radius: 16px;
+          padding: var(--padding);
+          border-radius: var(--border-radius);
           width: calc(100% - 8px);
           resize: vertical;
         }

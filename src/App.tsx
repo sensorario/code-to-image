@@ -14,7 +14,7 @@ const footerLinks = [
   { label: "code2image", href: "https://code2image.simonegentili.com" },
 ];
 
-const languages = ["javascript", "bash", "css"] as const;
+const languages = ["javascript", "bash", "css", "php"] as const;
 
 const App = () => {
   const [title, setTitle] = useState("");
@@ -31,6 +31,9 @@ const App = () => {
   const languageSelectionHandler = (selectedLanguage: string) => {
     setLanguage(selectedLanguage);
     if (selectedLanguage === "bash") setTitle("> Terminale");
+    if (selectedLanguage === "javascript") setTitle("JavaScript");
+    if (selectedLanguage === "css") setTitle("CSS");
+    if (selectedLanguage === "php") setTitle("PHP");
   };
 
   return (
