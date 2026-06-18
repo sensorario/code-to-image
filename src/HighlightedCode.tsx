@@ -3,6 +3,7 @@ import hljs from "highlight.js/lib/core";
 import javascript from "highlight.js/lib/languages/javascript";
 import bash from "highlight.js/lib/languages/bash";
 import css from "highlight.js/lib/languages/css";
+import { VersionNumber } from "./components/VersionNumber";
 
 hljs.registerLanguage("javascript", javascript);
 hljs.registerLanguage("bash", bash);
@@ -120,6 +121,8 @@ const HighlightedCode = ({
         </pre>
         <div className="tag">https://code2image.simonegentili.com/</div>
       </div>
+
+      <VersionNumber />
     </div>
   );
 };

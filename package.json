@@ -1,10 +1,10 @@
 {
   "name": "code2image",
-  "version": "v1.0.2",
+  "version": "1.0.4",
   "type": "module",
   "scripts": {
     "dev": "vite",
-    "build": "tsc -b && vite build",
+    "build": "npm version patch --no-git-tag-version && tsc -b && vite build",
     "postbuild": "cp .htaccess dist/",
     "lint": "eslint . --ext ts,tsx --report-unused-disable-directives --max-warnings 0",
     "preview": "vite preview"
