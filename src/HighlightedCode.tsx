@@ -93,37 +93,39 @@ const HighlightedCode = ({
   };
 
   return (
-    <div className="wrapper">
-      <div className="code-output">
-        <div
-          ref={titleRef}
-          className="code-output-header editable-title"
-          contentEditable
-          suppressContentEditableWarning
-          spellCheck={false}
-          onInput={(e) => onTitleChange(e.currentTarget.innerText)}
-          onPaste={(e) => pasteAsPlainText(e, onTitleChange)}
-          data-placeholder="Inserisci un titolo..."
-        />
-        <pre>
+    <>
+      <div className="wrapper">
+        <div className="code-output">
           <div
-            ref={codeRef}
-            className="editable-code"
+            ref={titleRef}
+            className="code-output-header editable-title"
             contentEditable
             suppressContentEditableWarning
             spellCheck={false}
-            onInput={(e) => onCodeChange(e.currentTarget.innerText)}
-            onPaste={(e) => pasteAsPlainText(e, onCodeChange)}
-            onBlur={applyHighlight}
-            onFocus={restorePlainText}
-            data-placeholder="Incolla o scrivi qui il codice..."
+            onInput={(e) => onTitleChange(e.currentTarget.innerText)}
+            onPaste={(e) => pasteAsPlainText(e, onTitleChange)}
+            data-placeholder="Inserisci un titolo..."
           />
-        </pre>
-        <div className="tag">https://code2image.simonegentili.com/</div>
-      </div>
+          <pre>
+            <div
+              ref={codeRef}
+              className="editable-code"
+              contentEditable
+              suppressContentEditableWarning
+              spellCheck={false}
+              onInput={(e) => onCodeChange(e.currentTarget.innerText)}
+              onPaste={(e) => pasteAsPlainText(e, onCodeChange)}
+              onBlur={applyHighlight}
+              onFocus={restorePlainText}
+              data-placeholder="Incolla o scrivi qui il codice..."
+            />
+          </pre>
+          <div className="tag">https://code2image.simonegentili.com/</div>
+        </div>
 
+      </div>
       <VersionNumber />
-    </div>
+    </>
   );
 };
 
