@@ -5,7 +5,8 @@ import Actions from "./Actions";
 import HighlightedCode from "./HighlightedCode";
 import "sensorario-design-system/style/index.css";
 import Button from "sensorario-design-system/Button";
-import { Footer, Header } from "./storybook-components/index.ts";
+import { QuadratoHeader } from "@sensorario/sg-components";
+import { Footer } from "./storybook-components/index.ts";
 
 const footerLinks = [
   { label: "guitar", href: "https://guitar.simonegentili.com" },
@@ -17,9 +18,47 @@ const footerLinks = [
 
 const languages = ["javascript", "bash", "css", "php"] as const;
 
+// Cookie condiviso su .simonegentili.com: un utente già autenticato su un
+// altro prodotto della famiglia (es. quadrato) risulta loggato anche qui.
+const AUTH_URL = "https://api.simonegentili.com/quadrato/authenticate";
+const COOKIE_NAME = "simonegentili.com-access-token";
+const USERNAME_KEY = "simonegentili.com-username";
+
+function setAuthCookie(token: string): void {
+  document.cookie = `${COOKIE_NAME}=${token}; path=/; domain=.simonegentili.com; secure; samesite=strict`;
+}
+
+function clearAuthCookie(): void {
+  document.cookie = `${COOKIE_NAME}=; path=/; domain=.simonegentili.com; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=strict`;
+}
+
 const App = () => {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("javascript");
+  const [username, setUsername] = useState<string | null>(() =>
+    localStorage.getItem(USERNAME_KEY)
+  );
+
+  const handleLogin = async (loginUsername: string, password: string): Promise<void> => {
+    const res = await fetch(AUTH_URL, {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({ username: loginUsername, password }),
+    });
+    if (!res.ok) {
+      throw new Error("Authentication failed");
+    }
+    const { token } = await res.json();
+    localStorage.setItem(USERNAME_KEY, loginUsername);
+    setAuthCookie(token);
+    setUsername(loginUsername);
+  };
+
+  const handleLogout = (): void => {
+    clearAuthCookie();
+    localStorage.removeItem(USERNAME_KEY);
+    setUsername(null);
+  };
 
   const codeChangeHandler = (): void => {
     // contenuto gestito direttamente dal DOM (contentEditable non controllato)
@@ -39,7 +78,12 @@ const App = () => {
 
   return (
     <>
-      <Header title="code2image - snippet to image conversion" />
+      <QuadratoHeader
+        title="code2image - snippet to image conversion"
+        username={username}
+        onLogin={handleLogin}
+        onLogout={handleLogout}
+      />
       <div className="sensorario-container light">
         <div className="code2image-content">
           <div className="page">
