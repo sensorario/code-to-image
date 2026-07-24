@@ -13,8 +13,8 @@
     "@sensorario/sg-components": "^0.0.68",
     "highlight.js": "^11.10.0",
     "html2canvas": "^1.4.1",
-    "react": "^18.3.1",
-    "react-dom": "^18.3.1",
+    "react": "^19.2.6",
+    "react-dom": "^19.2.6",
     "sensorario-design-system": "github:sensorario/sensorario-design-system#next"
   },
   "devDependencies": {
@@ -23,8 +23,8 @@
     "@babel/preset-env": "^7.24.8",
     "@babel/preset-react": "^7.24.7",
     "@babel/preset-typescript": "^7.24.7",
-    "@types/react": "^18.3.3",
-    "@types/react-dom": "^18.3.0",
+    "@types/react": "^19.2.6",
+    "@types/react-dom": "^19.2.3",
     "@typescript-eslint/eslint-plugin": "^7.13.1",
     "@typescript-eslint/parser": "^7.13.1",
     "@vitejs/plugin-react": "^6.0.2",
