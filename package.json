@@ -1,6 +1,6 @@
 {
   "name": "code2image",
-  "version": "1.0.8",
+  "version": "1.0.10",
   "type": "module",
   "scripts": {
     "dev": "vite",
