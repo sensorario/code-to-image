@@ -20,9 +20,19 @@ const languages = ["javascript", "bash", "css", "php"] as const;
 
 // Cookie condiviso su .simonegentili.com: un utente già autenticato su un
 // altro prodotto della famiglia (es. quadrato) risulta loggato anche qui.
+// Lo username non può essere letto da localStorage (non condiviso tra
+// subdomini): va decodificato dal claim "sub" del JWT nel cookie.
 const AUTH_URL = "https://api.simonegentili.com/quadrato/authenticate";
 const COOKIE_NAME = "simonegentili.com-access-token";
-const USERNAME_KEY = "simonegentili.com-username";
+
+function getAuthCookie(): string | null {
+  return (
+    document.cookie
+      .split("; ")
+      .find((entry) => entry.startsWith(`${COOKIE_NAME}=`))
+      ?.slice(COOKIE_NAME.length + 1) || null
+  );
+}
 
 function setAuthCookie(token: string): void {
   document.cookie = `${COOKIE_NAME}=${token}; path=/; domain=.simonegentili.com; secure; samesite=strict`;
@@ -32,11 +42,22 @@ function clearAuthCookie(): void {
   document.cookie = `${COOKIE_NAME}=; path=/; domain=.simonegentili.com; expires=Thu, 01 Jan 1970 00:00:00 GMT; secure; samesite=strict`;
 }
 
+function decodeJwtUsername(token: string | null): string | null {
+  if (!token) return null;
+  try {
+    const payload = token.split(".")[1];
+    const json = atob(payload.replace(/-/g, "+").replace(/_/g, "/"));
+    return JSON.parse(json).sub ?? null;
+  } catch {
+    return null;
+  }
+}
+
 const App = () => {
   const [title, setTitle] = useState("");
   const [language, setLanguage] = useState("javascript");
   const [username, setUsername] = useState<string | null>(() =>
-    localStorage.getItem(USERNAME_KEY)
+    decodeJwtUsername(getAuthCookie())
   );
 
   const handleLogin = async (loginUsername: string, password: string): Promise<void> => {
@@ -49,14 +70,12 @@ const App = () => {
       throw new Error("Authentication failed");
     }
     const { token } = await res.json();
-    localStorage.setItem(USERNAME_KEY, loginUsername);
     setAuthCookie(token);
-    setUsername(loginUsername);
+    setUsername(decodeJwtUsername(token));
   };
 
   const handleLogout = (): void => {
     clearAuthCookie();
-    localStorage.removeItem(USERNAME_KEY);
     setUsername(null);
   };
 
