@@ -1,6 +1,6 @@
 {
   "name": "code2image",
-  "version": "1.0.14",
+  "version": "1.0.15",
   "type": "module",
   "scripts": {
     "dev": "vite",
@@ -10,7 +10,7 @@
     "preview": "vite preview"
   },
   "dependencies": {
-    "@sensorario/sg-components": "^0.0.104",
+    "@sensorario/sg-components": "^0.0.106",
     "highlight.js": "^11.10.0",
     "html2canvas": "^1.4.1",
     "react": "^19.2.6",
